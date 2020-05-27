@@ -25,27 +25,15 @@ class EmployeeTest {
         );
     }
 
-//    @Test
-//    void test_calculatePay() {
-//        assertEquals(this.employee.calculatePay(), 12300);
-//    }
-
-//     TODO: Fix it to meet the new requirement
-//    @Test
-//    void test_calculatePay_on_solid_wednesday() {
-//        assertEquals(this.employee.calculatePay(), 13600);
-//    }
-
+    @Test
+    void test_calculatePay_on_solid_wednesday() {
+        assertEquals(this.employee.calculatePay(), 13600);
+    }
 
     @Test
-    void test_report() {
-        assertEquals(this.employee.reportHours(), "Regular Hours: 37");
+    void test_report_on_solid_wednesday() {
+        assertEquals(this.employee.reportHours(), "Regular Hours: 40");
     }
-//     TODO: Fix it to meet the new requirement
-//    @Test
-//    void test_report_on_solid_wednesday() {
-//        assertEquals(this.employee.reportHours(), "Regular Hours: 40");
-//    }
 
 
     @Test

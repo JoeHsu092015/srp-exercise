@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Employee {
-    public int[] workHours;
+
     public String name;
+
+    private PayCalculator payCalculator;
+    private HourReporter hourReporter;
+    private WorkingWeek workingWeek;
 
     public Employee(String name, int[] workHours) {
         if (workHours.length != 7) {
@@ -17,19 +21,22 @@ public class Employee {
             }
         }
 
-        this.workHours = workHours;
         this.name = name;
+
+        workingWeek = new WorkingWeek(workHours);
+        payCalculator = new PayCalculator(workingWeek);
+        hourReporter = new HourReporter(workingWeek);
     }
 
 
     // CFO
     public int calculatePay() {
-        return this.regularHours() * 200 + this.overtimeHours() * 350;
+        return payCalculator.calculatePay();
     }
 
     // COO
     public String reportHours() {
-        return "Regular Hours: " + this.regularHours();
+        return "Regular Hours: " + hourReporter.reportHours();
     }
 
     // CTO
@@ -37,35 +44,6 @@ public class Employee {
         return "saved";
     }
 
-
-    private int overtimeHours() {
-        int hourCounter = 0;
-        ArrayList<Integer> workDays = new ArrayList<Integer>(Arrays.asList(1, 2, 3, 4, 5));
-        for (int i = 0; i < this.workHours.length; i++) {
-            int workDay = i;
-            int workHour = this.workHours[i];
-
-
-            if (workDays.contains(workDay)) {
-                hourCounter += Math.max(workHour - 8, 0);
-            } else {
-                hourCounter += workHour;
-            }
-        }
-        return hourCounter;
-    }
-
-    private int regularHours() {
-        int hourCounter = 0;
-        for (int i = 0; i < this.workHours.length; i++) {
-            int workHour = this.workHours[i];
-            if (i == 0 || i == 6) {
-                continue;
-            }
-            hourCounter += Math.min(workHour, 8);
-        }
-        return hourCounter;
-    }
 }
 
 
